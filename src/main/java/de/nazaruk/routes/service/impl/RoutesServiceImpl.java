@@ -1,9 +1,11 @@
 package de.nazaruk.routes.service.impl;
 
+import com.google.common.collect.Sets;
 import de.nazaruk.routes.service.RoutesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -15,8 +17,9 @@ public class RoutesServiceImpl implements RoutesService {
 
     @Override
     public boolean isDirectRouteAvailable(int dep_sid, int arr_sid) {
-        Map<Integer, Set<Integer>> routes = busRoutesConfiguration.getDirectRoutes();
-        Set<Integer> arrivalIds = routes.get(dep_sid);
-        return arrivalIds != null && arrivalIds.contains(arr_sid);
+        Map<Integer, Set<Integer>> routes = busRoutesConfiguration.getBusRoutes();
+        HashSet<Integer> expectedStationIds = Sets.newHashSet(dep_sid, arr_sid);
+        
+        return routes.values().stream().anyMatch(e -> e.containsAll(expectedStationIds));
     }
 }
