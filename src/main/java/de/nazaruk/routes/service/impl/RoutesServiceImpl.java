@@ -15,7 +15,7 @@ public class RoutesServiceImpl implements RoutesService {
 
     @Override
     public boolean isDirectRouteAvailable(int dep_sid, int arr_sid) {
-        Map<Integer, Set<Integer>> routes = busRoutesConfiguration.getRoutes();
+        Map<Integer, Set<Integer>> routes = busRoutesConfiguration.getDirectRoutes();
         Set<Integer> arrivalIds = routes.get(dep_sid);
         return arrivalIds != null && arrivalIds.contains(arr_sid);
     }
