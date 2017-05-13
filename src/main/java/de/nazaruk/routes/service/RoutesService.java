@@ -1,4 +1,4 @@
-package de.nazaruk.statistics.service;
+package de.nazaruk.routes.service;
 
 public interface RoutesService {
 

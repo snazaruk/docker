@@ -1,7 +1,6 @@
-package de.nazaruk.statistics.controller;
+package de.nazaruk.routes.controller;
 
-import de.nazaruk.routes.controller.DirectRouteResponse;
-import de.nazaruk.statistics.service.RoutesService;
+import de.nazaruk.routes.service.RoutesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
