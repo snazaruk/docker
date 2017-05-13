@@ -33,7 +33,7 @@ public class RoutesControllerTest {
     }
 
     @Test
-    public void should_be_direct_forward() throws Exception {
+    public void direct() throws Exception {
         mockMvc.perform(get("/api/direct")
                 .param("dep_sid", "3")
                 .param("arr_sid", "6"))
@@ -43,17 +43,7 @@ public class RoutesControllerTest {
     }
 
     @Test
-    public void should_be_direct_backward() throws Exception {
-        mockMvc.perform(get("/api/direct")
-                .param("dep_sid", "6")
-                .param("arr_sid", "3"))
-                .andExpect(status().isOk())
-                .andExpect(content().json("{\"dep_sid\":6,\"arr_sid\":3,\"direct_bus_route\":true}"))
-                .andReturn();
-    }
-
-    @Test
-    public void should_not_be_direct() throws Exception {
+    public void notDirect() throws Exception {
         mockMvc.perform(get("/api/direct")
                 .param("dep_sid", "2")
                 .param("arr_sid", "6"))
