@@ -1,5 +1,9 @@
 package de.nazaruk.routes.service.impl;
 
+import de.nazaruk.Application;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.CommandLinePropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -13,15 +17,18 @@ import java.util.stream.Stream;
 public class BusRoutesConfiguration {
 
     /**
-     * Represents the map of all available direct routes.
+     * Represents the map of all bus routes.
      * Key - route Id
      * Value - set of all station Ids in this rute
      */
     private Map<Integer, Set<Integer>> busRoutes;
 
+    @Autowired
+    private FileSource fileSource;
+
     @PostConstruct
-    private void loadDirectRoutes() throws IOException {
-        String fileName = "data.txt";
+    void loadDirectRoutes() throws IOException {
+        String fileName = fileSource.getFileName();
 
         Stream<String> stream = Files.lines(Paths.get(fileName));
         stream.forEach(e -> {

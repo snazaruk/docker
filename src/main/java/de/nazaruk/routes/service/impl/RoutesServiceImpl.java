@@ -3,7 +3,6 @@ package de.nazaruk.routes.service.impl;
 import com.google.common.collect.Sets;
 import de.nazaruk.routes.service.RoutesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;

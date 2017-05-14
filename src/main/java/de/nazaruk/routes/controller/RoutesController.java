@@ -20,6 +20,7 @@ public class RoutesController {
     public ResponseEntity<DirectRouteResponse> direct(@RequestParam int dep_sid, @RequestParam int arr_sid) {
         boolean isDirect = routesService.isDirectRouteAvailable(dep_sid, arr_sid);
         DirectRouteResponse response = new DirectRouteResponse(dep_sid, arr_sid, isDirect);
+
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

@@ -1,26 +1,29 @@
 package de.nazaruk.routes.controller;
 
-import de.nazaruk.routes.service.RoutesService;
+import de.nazaruk.Application;
+import de.nazaruk.routes.service.impl.FileSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = {RoutesControllerTest.TestConfig.class, Application.class})
 public class RoutesControllerTest {
-
-    @Autowired
-    private RoutesService routesService;
 
     private MockMvc mockMvc;
 
@@ -50,6 +53,18 @@ public class RoutesControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"dep_sid\":2,\"arr_sid\":6,\"direct_bus_route\":false}"))
                 .andReturn();
+    }
+
+    @Configuration
+    public static class TestConfig {
+
+        @Bean
+        @Primary
+        public FileSource getFileSource() {
+            FileSource fileSource = mock(FileSource.class);
+            when(fileSource.getFileName()).thenReturn("data/example");
+            return fileSource;
+        }
     }
 
 }
