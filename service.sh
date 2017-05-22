@@ -31,15 +31,15 @@ _run_smoke() {
 }
 
 docker_build() {
-  docker build -t goeuro:devtest .
+  docker build -t routes:devtest .
 }
 
 docker_run() {
-  docker run --rm -it -p 8088:8088 goeuro:devtest
+  docker run --rm -it -p 8088:8088 routes:devtest
 }
 
 docker_smoke() {
-  containerId=$(docker run -d goeuro:devtest)
+  containerId=$(docker run -d routes:devtest)
   echo "Waiting 10 seconds for service to start..."
   sleep 10
   docker exec $containerId /src/service.sh dev_smoke
